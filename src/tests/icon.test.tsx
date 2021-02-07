@@ -15,7 +15,6 @@ const Props = {
 
 describe("Icon Component", () => {
   const icon = shallow(<Icon {...Props} />);
-  console.log("img", Population)
   it("Width Icon Props", () => {
     const iconImage = icon.find(IconImage);
     expect(iconImage).toHaveStyleRule("width", "30px");

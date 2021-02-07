@@ -12,6 +12,7 @@ export function* GetCitiesSearch(action: GetCitiesSearchActionRequestType) {
       xhrEndpoint.getAllCitiesSearchRequest,
       "cities.json",
       action.searchValue,
+      action.sortType,
       action.indexPaginate
     );
     if (response.status === 200) {

@@ -3,15 +3,18 @@ import * as CommonRequestTypes from './CommonRequestTypes'
 
 import CitiesResponse from '../models/CitiesResponse'
 import { ErrorType } from '../managers/ErrorManager'
+import SortType from '../models/SortType'
 
 export interface GetCitiesActionRequestType {
     type: string
+    sortType: SortType
     indexPaginate?: number
 }
 
-const GetCitiesRequest = (indexPaginate?: number): GetCitiesActionRequestType => {
+const GetCitiesRequest = (sortType: SortType, indexPaginate?: number): GetCitiesActionRequestType => {
    return {
       type: ActionTypes.GetCitiesAction.GetCitiesRequest,
+      sortType: sortType,
       indexPaginate: indexPaginate
    }
 }

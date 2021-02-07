@@ -6,6 +6,7 @@ import Icon from "./Icon";
 
 import Increase from "../../ressources/assets/increase.png";
 import Decrease from "../../ressources/assets/decrease.png";
+import ColorType from "../../ressources/colors/ColorType";
 
 
 const ContainerInput = styled.div`
@@ -25,6 +26,8 @@ const Input = styled.input`
   width: 80%;
   height: 30px;
   margin-right: 15px;
+  border-radius: 5px;
+  border: 1px solid ${ColorType.darkGrey};
 `;
 
 interface Props {

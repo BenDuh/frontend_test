@@ -110,17 +110,17 @@ export default class Home extends Component<Props, State> {
   };
 
   componentDidMount(): void {
-    this.props.GetCities();
+    this.props.GetCities(this.state.sortValue);
   }
 
   componentDidUpdate(prevProps: Props): void {
     if (prevProps.getCitiesSuccess !== this.props.getCitiesSuccess) {
-      this.sortCities(this.props.cities);
+      this.setState({ cities: this.props.cities });
     }
     if (
       prevProps.getCitiesSearchSuccess !== this.props.getCitiesSearchSuccess
     ) {
-      this.sortCities(this.props.citiesSearch);
+      this.setState({ cities: this.props.citiesSearch });
     }
   }
 
@@ -154,7 +154,7 @@ export default class Home extends Component<Props, State> {
         </ContainerCard>
       );
     });
-    if (this.props.canPaginate && !this.props.isLoadingCities) {
+    if (this.props.canPaginate && this.state.cities.length) {
       citiesCardArray.push(
         <ShowMore
           key={"showMore"}
@@ -169,31 +169,26 @@ export default class Home extends Component<Props, State> {
     if (this.state.searchValue) {
       this.props.GetCitiesSearch(
         this.state.searchValue,
+        this.state.sortValue,
         this.state.cities.length
       );
     } else {
-      this.props.GetCities(this.state.cities.length);
+      this.props.GetCities(this.state.sortValue, this.state.cities.length);
     }
   };
 
   getSearchCities = (value: string): void => {
     this.setState({ searchValue: value }, () =>
-      this.props.GetCitiesSearch(this.state.searchValue)
+      this.props.GetCitiesSearch(this.state.searchValue, this.state.sortValue)
     );
   };
 
-  sortCities = (cities: CitiesResponse[]): void => {
-    switch (this.state.sortValue) {
-      case SortType.increase:
-        cities.sort((a, b) => parseInt(b.population) - parseInt(a.population));
-        break;
-      case SortType.decrease:
-        cities.sort((a, b) => parseInt(a.population) - parseInt(b.population));
-        break;
-      default:
-        break;
+  sortCities = (): void => {
+    if (this.state.searchValue) {
+      this.props.GetCitiesSearch(this.state.searchValue, this.state.sortValue);
+    } else {
+      this.props.GetCities(this.state.sortValue);
     }
-    this.setState({ cities: cities });
   };
 
   titleListeCitiesIsEmpty = (): JSX.Element => {
@@ -206,7 +201,7 @@ export default class Home extends Component<Props, State> {
     );
   };
 
-  displayListe = (): JSX.Element | JSX.Element[] => {
+  displayList = (): JSX.Element | JSX.Element[] => {
     if (this.props.getCitiesError && !this.props.isLoadingCities) {
       return (
         <ErrorLabel errorMessage={ErrorManager(this.props.getCitiesError!)} />
@@ -241,13 +236,13 @@ export default class Home extends Component<Props, State> {
                       ? SortType.decrease
                       : SortType.increase,
                 },
-                () => this.sortCities(this.state.cities)
+                () => this.sortCities()
               )
             }
             sortValue={this.state.sortValue}
             value={this.state.searchValue}
           />
-          <List>{this.displayListe()}</List>
+          <List>{this.displayList()}</List>
         </ContainerList>
         <MapContainer>
           <Map

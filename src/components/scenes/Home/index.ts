@@ -8,6 +8,7 @@ import { ErrorType } from "../../../managers/ErrorManager";
 import CitiesResponse from "../../../models/CitiesResponse";
 
 import Home from "./Home";
+import SortType from "../../../models/SortType";
 
 export interface HomeContainerProps {
   // CitiesList
@@ -23,8 +24,12 @@ export interface HomeContainerProps {
   getCitiesSearchError?: ErrorType;
   citiesSearch: CitiesResponse[];
 
-  GetCities: (indexPaginate?: number) => void;
-  GetCitiesSearch: (searchValue: string, indexPaginate?: number) => void;
+  GetCities: (sortType: SortType, indexPaginate?: number) => void;
+  GetCitiesSearch: (
+    searchValue: string,
+    sortType: SortType,
+    indexPaginate?: number
+  ) => void;
 }
 
 const mapStateToProps = (state: RootReducerState) => {
@@ -45,12 +50,19 @@ const mapStateToProps = (state: RootReducerState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
   return {
-    GetCities: (indexPaginate?: number) =>
-      dispatch(actions.GetCitiesActions.GetCitiesRequest(indexPaginate)),
-    GetCitiesSearch: (searchValue: string, indexPaginate?: number) =>
+    GetCities: (sortType: SortType, indexPaginate?: number) =>
+      dispatch(
+        actions.GetCitiesActions.GetCitiesRequest(sortType, indexPaginate)
+      ),
+    GetCitiesSearch: (
+      searchValue: string,
+      sortType: SortType,
+      indexPaginate?: number
+    ) =>
       dispatch(
         actions.GetCitiesSearchActions.GetCitiesSearchRequest(
           searchValue,
+          sortType,
           indexPaginate
         )
       ),

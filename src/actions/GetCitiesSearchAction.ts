@@ -3,20 +3,24 @@ import * as CommonRequestTypes from "./CommonRequestTypes";
 
 import CitiesResponse from "../models/CitiesResponse";
 import { ErrorType } from "../managers/ErrorManager";
+import SortType from "../models/SortType";
 
 export interface GetCitiesSearchActionRequestType {
-  type: string;
-  searchValue: string;
-  indexPaginate?: number;
+  type: string
+  searchValue: string
+  sortType: SortType
+  indexPaginate?: number
 }
 
 const GetCitiesSearchRequest = (
   searchValue: string,
+  sortType: SortType,
   indexPaginate?: number
 ): GetCitiesSearchActionRequestType => {
   return {
     type: ActionTypes.GetCitiesSearchAction.GetCitiesSearchRequest,
     searchValue: searchValue,
+    sortType: sortType,
     indexPaginate: indexPaginate,
   };
 };

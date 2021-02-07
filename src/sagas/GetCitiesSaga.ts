@@ -11,9 +11,14 @@ export function* GetCities(action: GetCitiesActionRequestType) {
     const response = yield call(
       xhrEndpoint.getAllCitiesRequest,
       "cities.json",
+      action.sortType,
       action.indexPaginate
     );
+
     if (response.status === 200) {
+      if(!action.indexPaginate){
+        response.resetArray = true
+      }
       yield put(Actions.GetCitiesActions.GetCitiesSuccess(response));
     }
   } catch (error) {

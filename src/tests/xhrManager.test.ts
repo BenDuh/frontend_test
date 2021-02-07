@@ -20,7 +20,7 @@ test("get citiesSearch list", async () => {
     });
 });
 
-test("get citiesSearch list pafinate", async () => {
+test("get citiesSearch list paginate", async () => {
   xhrEndpoint
     .getAllCitiesSearchRequest("cities.json", "n", 50)
     .then((response: any) => {

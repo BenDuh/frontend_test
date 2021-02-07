@@ -61,7 +61,9 @@ const CitiesReducer = (
         isLoadingCities: false,
         getCitiesSuccess: true,
         canPaginate: action.response.canPaginate,
-        cities: [...state.cities, ...action.response.data],
+        cities: action.response.resetArray
+          ? action.response.data
+          : [...state.cities, ...action.response.data],
       };
       break;
     case ActionTypes.GetCitiesAction.GetCitiesFailure:

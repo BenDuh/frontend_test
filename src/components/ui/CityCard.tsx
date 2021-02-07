@@ -9,6 +9,7 @@ import Down from "../../ressources/assets/down.png";
 import Up from "../../ressources/assets/up.png";
 import Stable from "../../ressources/assets/stable.png";
 import Icon from "./Icon";
+import ColorType from "../../ressources/colors/ColorType";
 
 interface Props {
   cityName: string;
@@ -24,7 +25,7 @@ const Card = styled.div`
   justify-content: center;
   padding: 20px;
   margin: 10px 0;
-  border: 1px solid;
+  border: 1px solid ${ColorType.darkGrey};
   border-radius: 5px;
   cursor: pointer;
 
