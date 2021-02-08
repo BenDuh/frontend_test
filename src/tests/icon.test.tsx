@@ -15,7 +15,7 @@ const Props = {
 
 describe("Icon Component", () => {
   const icon = shallow(<Icon {...Props} />);
-  it("Width Icon Props", () => {
+  it("Width Icon props is apply", () => {
     const iconImage = icon.find(IconImage);
     expect(iconImage).toHaveStyleRule("width", "30px");
   });
